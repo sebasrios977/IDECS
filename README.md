@@ -1,4 +1,4 @@
-# Tu Empresa — Sitio Web Corporativo
+# IDECS — Sitio Web Corporativo
 
 Proyecto web construido con **Astro 4**, **Tailwind CSS** y **Resend** para el formulario de contacto.
 
