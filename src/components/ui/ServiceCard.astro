@@ -1,0 +1,18 @@
+---
+interface Props {
+  number:      string;
+  icon:        string;
+  title:       string;
+  description: string;
+}
+const { number, icon, title, description } = Astro.props;
+---
+
+<article class="bg-white p-8 md:p-10 hover:bg-off transition-colors duration-150">
+  <p class="font-mono text-xs text-blue-DEFAULT mb-4">{number}</p>
+  <div class="w-11 h-11 border border-border rounded-md flex items-center justify-center mb-5 text-xl" aria-hidden="true">
+    {icon}
+  </div>
+  <h3 class="text-base font-semibold text-dark mb-3">{title}</h3>
+  <p class="text-sm text-mid leading-relaxed">{description}</p>
+</article>

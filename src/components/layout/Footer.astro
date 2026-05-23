@@ -1,0 +1,67 @@
+---
+import { SITE, NAV_LINKS } from '../../data/site';
+---
+
+<footer class="bg-off border-t border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14">
+
+    <!-- Top grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-10 border-b border-border">
+
+      <!-- Brand -->
+      <div class="sm:col-span-2 lg:col-span-1">
+        <p class="font-body font-semibold text-base text-dark">{SITE.name}</p>
+        <p class="text-xs text-muted mt-1">{SITE.tagline}</p>
+        <p class="text-sm text-mid mt-4 leading-relaxed max-w-xs">
+          {SITE.description}
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="font-mono text-[11px] uppercase tracking-widest text-blue-DEFAULT mb-4">
+          Navegación
+        </p>
+        <ul class="flex flex-col gap-2.5" role="list">
+          {NAV_LINKS.map(({ href, label }) => (
+            <li>
+              <a
+                href={href}
+                class="text-sm text-muted hover:text-dark transition-colors duration-150"
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="font-mono text-[11px] uppercase tracking-widest text-blue-DEFAULT mb-4">
+          Contacto
+        </p>
+        <ul class="flex flex-col gap-2.5 text-sm text-mid" role="list">
+          <li>
+            <a href={`tel:${SITE.phone.replace(/\s/g, '')}`} class="hover:text-dark transition-colors">
+              {SITE.phone}
+            </a>
+          </li>
+          <li>{SITE.address}</li>
+          <li>{SITE.schedule}</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-6">
+      <p class="text-xs text-muted text-center sm:text-left">
+        &copy; {new Date().getFullYear()} {SITE.name}. Todos los derechos reservados.
+      </p>
+      <p class="font-mono text-[11px] text-gray-400">
+        Puerto Gaitán, Meta, Colombia
+      </p>
+    </div>
+
+  </div>
+</footer>

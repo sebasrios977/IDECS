@@ -1,0 +1,58 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+import Button       from '../ui/Button.astro';
+import { CERTIFICATIONS } from '../../data/site';
+
+const metrics = [
+  { value: '98%',  label: 'Proyectos entregados a tiempo'          },
+  { value: '0',    label: 'Accidentes graves en los últimos 3 años' },
+  { value: '12k+', label: 'Toneladas de acero instaladas'           },
+  { value: '4.9',  label: 'Calificación promedio de clientes'       },
+];
+---
+
+<section class="border-b border-border" aria-labelledby="about-strip-title">
+  <div class="grid lg:grid-cols-2">
+
+    <!-- Left: text -->
+    <div class="px-4 sm:px-8 lg:px-14 py-16 md:py-24 lg:border-r border-b lg:border-b-0 border-border">
+      <SectionLabel text="nuestra empresa" />
+      <h2
+        id="about-strip-title"
+        class="font-head text-display-md font-bold text-dark mt-1 mb-6"
+      >
+        Décadas de experiencia en el sector
+      </h2>
+      <p class="text-sm md:text-base text-mid leading-relaxed mb-8">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        nostrud exercitation.
+      </p>
+
+      <!-- Certifications -->
+      <ul class="flex flex-col gap-3 mb-10" role="list">
+        {CERTIFICATIONS.map((cert) => (
+          <li class="flex items-center gap-3 text-sm text-mid">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-DEFAULT shrink-0"></span>
+            {cert}
+          </li>
+        ))}
+      </ul>
+
+      <Button href="/nosotros" variant="primary">Conocer Nuestra Historia</Button>
+    </div>
+
+    <!-- Right: metric grid -->
+    <div class="bg-off px-4 sm:px-8 lg:px-14 py-16 md:py-24 grid grid-cols-2 gap-4 content-start">
+      {metrics.map(({ value, label }) => (
+        <div class="bg-white border border-border rounded-md p-5">
+          <p class="font-head text-3xl md:text-4xl font-bold text-dark leading-none mb-1.5">
+            {value}
+          </p>
+          <p class="text-xs text-muted leading-snug">{label}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

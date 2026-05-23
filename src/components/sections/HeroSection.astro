@@ -1,0 +1,69 @@
+---
+import StatCard from '../ui/StatCard.astro';
+import Button   from '../ui/Button.astro';
+import { STATS } from '../../data/site';
+---
+
+<section class="min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-68px)] grid md:grid-cols-2 items-center border-b border-border">
+
+  <!-- Left: copy -->
+  <div class="px-4 sm:px-8 lg:px-16 py-16 md:py-24 flex flex-col justify-center">
+
+    <!-- Eyebrow -->
+    <div class="inline-flex items-center gap-2.5 bg-blue-light px-3 py-1.5 rounded mb-8 w-fit">
+      <span class="w-1.5 h-1.5 rounded-full bg-blue-DEFAULT shrink-0"></span>
+      <span class="font-mono text-[11px] text-blue-DEFAULT tracking-wide">
+        Ingeniería Civil · Metalmecánica · Colombia
+      </span>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="font-head text-display-xl font-black text-dark mb-6 text-balance">
+      Soluciones de <em class="text-blue-DEFAULT not-italic">ingeniería</em> que resisten el tiempo
+    </h1>
+
+    <!-- Description -->
+    <p class="text-base md:text-lg text-mid leading-relaxed max-w-lg mb-10">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+      incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+      nostrud exercitation ullamco laboris.
+    </p>
+
+    <!-- Actions -->
+    <div class="flex flex-wrap gap-3">
+      <Button href="/proyectos" variant="primary">Ver Proyectos</Button>
+      <Button href="/contacto"  variant="ghost">Solicitar Cotización</Button>
+    </div>
+  </div>
+
+  <!-- Right: metrics card with grid background -->
+  <div class="hidden md:flex items-center justify-center px-8 lg:px-16 py-24 border-l border-border bg-off">
+    <div class="relative w-full max-w-sm rounded-lg border border-border bg-off overflow-hidden p-5">
+      <!-- Grid texture -->
+      <div class="absolute inset-0 grid-bg pointer-events-none"></div>
+
+      <!-- Inner card -->
+      <div class="relative z-10 bg-white border border-border rounded-md p-6">
+        <p class="font-mono text-[11px] uppercase tracking-widest text-muted mb-5">
+          // indicadores clave
+        </p>
+        <div class="divide-y divide-border">
+          {STATS.map(({ value, label }) => (
+            <div class="flex items-baseline justify-between py-4 first:pt-0 last:pb-0">
+              <span class="text-sm text-muted">{label}</span>
+              <span class="font-head text-3xl font-bold text-dark">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile stats strip -->
+  <div class="md:hidden grid grid-cols-2 gap-2 px-4 pb-10">
+    {STATS.map(({ value, label }) => (
+      <StatCard value={value} label={label} />
+    ))}
+  </div>
+
+</section>

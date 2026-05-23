@@ -1,0 +1,144 @@
+---
+import BaseLayout   from '../layouts/BaseLayout.astro';
+import Navbar       from '../components/layout/Navbar.astro';
+import Footer       from '../components/layout/Footer.astro';
+import SectionLabel from '../components/ui/SectionLabel.astro';
+import TeamCard     from '../components/ui/TeamCard.astro';
+import CtaBand      from '../components/sections/CtaBand.astro';
+import { SITE, VALUES, TEAM, TIMELINE } from '../data/site';
+---
+
+<BaseLayout
+  title="Nosotros"
+  description="Conoce la historia, misión, visión y equipo de nuestra empresa de ingeniería civil y metalmecánica con más de 25 años de experiencia en Colombia."
+>
+  <Navbar />
+
+  <main id="main-content" class="pt-16 md:pt-[68px]">
+
+    <!-- Hero -->
+    <section class="border-b border-border py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 md:gap-20 items-center">
+        <div>
+          <SectionLabel text="sobre nosotros" />
+          <h1 class="font-head text-display-lg font-black text-dark mt-1 text-balance">
+            Más de dos décadas <em class="text-blue-DEFAULT not-italic">construyendo</em> confianza
+          </h1>
+        </div>
+        <p class="text-base text-mid leading-relaxed">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+          nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+          fugiat nulla pariatur.
+        </p>
+      </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="border-b border-border" aria-labelledby="mision-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+        <div class="py-14 md:py-20 md:pr-14">
+          <SectionLabel text="misión" />
+          <h2 id="mision-title" class="font-head text-2xl font-bold text-dark mt-1 mb-5">
+            Nuestra Misión
+          </h2>
+          <p class="text-sm text-mid leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div class="py-14 md:py-20 md:pl-14 bg-white md:bg-off">
+          <SectionLabel text="visión" />
+          <h2 class="font-head text-2xl font-bold text-dark mt-1 mb-5">
+            Nuestra Visión
+          </h2>
+          <p class="text-sm text-mid leading-relaxed">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Values -->
+    <section class="border-b border-border bg-off py-16 md:py-24" aria-labelledby="values-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionLabel text="valores" />
+        <h2 id="values-title" class="font-head text-display-md font-bold text-dark mt-1 mb-12">
+          Lo que nos guía
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-lg overflow-hidden">
+          {VALUES.map(({ icon, title, description }) => (
+            <div class="bg-off hover:bg-white transition-colors duration-150 p-8">
+              <div class="w-10 h-10 border border-border rounded-full flex items-center justify-center text-blue-DEFAULT text-lg mb-5" aria-hidden="true">
+                {icon}
+              </div>
+              <h3 class="font-head text-xl font-bold text-dark mb-2">{title}</h3>
+              <p class="text-sm text-muted leading-relaxed">{description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="border-b border-border py-16 md:py-24" aria-labelledby="timeline-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionLabel text="trayectoria" />
+        <h2 id="timeline-title" class="font-head text-display-md font-bold text-dark mt-1 mb-12">
+          Nuestra historia
+        </h2>
+
+        <ol class="relative border-l border-border ml-4 md:ml-0">
+          {TIMELINE.map(({ year, title, description }, i) => (
+            <li class={['relative pl-8 md:grid md:grid-cols-[100px_1fr] md:gap-10 md:pl-0', i < TIMELINE.length - 1 ? 'pb-12' : ''].join(' ')}>
+              <!-- dot -->
+              <span class="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-blue-DEFAULT border-2 border-white outline outline-1 outline-blue-DEFAULT md:hidden" aria-hidden="true"></span>
+
+              <div class="md:text-right">
+                <span class="font-head text-xl font-bold text-blue-DEFAULT">{year}</span>
+              </div>
+              <div class="relative md:pl-10 md:border-l md:border-border">
+                <!-- dot desktop -->
+                <span class="hidden md:block absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-blue-DEFAULT border-2 border-white outline outline-1 outline-blue-DEFAULT" aria-hidden="true"></span>
+                <h3 class="text-base font-semibold text-dark mb-1">{title}</h3>
+                <p class="text-sm text-muted leading-relaxed">{description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="py-16 md:py-24" aria-labelledby="team-title">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionLabel text="equipo" />
+        <h2 id="team-title" class="font-head text-display-md font-bold text-dark mt-1 mb-12">
+          Equipo directivo
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {TEAM.map((member) => (
+            <TeamCard
+              initials={member.initials}
+              name={member.name}
+              role={member.role}
+              bio={member.bio}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CtaBand
+      title="¿Hablamos sobre su próximo proyecto?"
+      subtitle="Nuestro equipo está listo para atenderle."
+      cta="Contáctenos"
+    />
+  </main>
+
+  <Footer />
+</BaseLayout>

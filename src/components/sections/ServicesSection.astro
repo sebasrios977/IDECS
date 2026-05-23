@@ -1,0 +1,33 @@
+---
+import SectionLabel from '../ui/SectionLabel.astro';
+import ServiceCard  from '../ui/ServiceCard.astro';
+import { SERVICES } from '../../data/site';
+---
+
+<section class="py-20 md:py-28 border-b border-border" aria-labelledby="services-title">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="mb-12 md:mb-16">
+      <SectionLabel text="servicios" />
+      <h2
+        id="services-title"
+        class="font-head text-display-md font-bold text-dark mt-1"
+      >
+        Lo que hacemos
+      </h2>
+    </div>
+
+    <!-- Services grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border rounded-lg overflow-hidden">
+      {SERVICES.map((svc) => (
+        <ServiceCard
+          number={svc.number}
+          icon={svc.icon}
+          title={svc.title}
+          description={svc.description}
+        />
+      ))}
+    </div>
+
+  </div>
+</section>

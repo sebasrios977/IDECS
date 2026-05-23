@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-white text-dark font-body;
+  }
+
+  /* Grid line pattern used as background texture */
+  .grid-bg {
+    background-image:
+      linear-gradient(#dddbd7 1px, transparent 1px),
+      linear-gradient(90deg, #dddbd7 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.5;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Active nav underline */
+  .nav-active {
+    @apply text-dark font-medium border-b border-blue pb-0.5;
+  }
+}

@@ -1,0 +1,79 @@
+---
+import BaseLayout  from '../layouts/BaseLayout.astro';
+import Navbar      from '../components/layout/Navbar.astro';
+import Footer      from '../components/layout/Footer.astro';
+import SectionLabel from '../components/ui/SectionLabel.astro';
+import ContactForm from '../components/sections/ContactForm.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout
+  title="Contacto"
+  description="Póngase en contacto con nosotros para solicitar cotizaciones de obra civil, estructuras metálicas o metalmecánica industrial en Colombia."
+>
+  <Navbar />
+
+  <main id="main-content" class="pt-16 md:pt-[68px]">
+    <section class="min-h-[calc(100vh-68px)] grid lg:grid-cols-2">
+
+      <!-- Left: info -->
+      <div class="bg-dark px-4 sm:px-8 lg:px-16 py-16 md:py-24 flex flex-col justify-center order-2 lg:order-1">
+
+        <SectionLabel text="contacto" />
+        <h1 class="font-head text-display-lg font-black text-white mt-1 mb-6 text-balance">
+          Hablemos de su <em class="text-blue-mid not-italic">proyecto</em>
+        </h1>
+        <p class="text-sm text-gray-400 leading-relaxed mb-12 max-w-sm">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim
+          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
+        </p>
+
+        <!-- Contact data -->
+        <dl class="flex flex-col gap-7">
+          <div>
+            <dt class="font-mono text-[10px] uppercase tracking-widest text-blue-mid mb-1">
+              Teléfono
+            </dt>
+            <dd>
+              <a
+                href={`tel:${SITE.phone.replace(/\s/g, '')}`}
+                class="text-base text-white hover:text-blue-mid transition-colors"
+              >
+                {SITE.phone}
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt class="font-mono text-[10px] uppercase tracking-widest text-blue-mid mb-1">
+              Dirección
+            </dt>
+            <dd class="text-base text-gray-300">{SITE.address}</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-[10px] uppercase tracking-widest text-blue-mid mb-1">
+              Horario de atención
+            </dt>
+            <dd class="text-base text-gray-300">{SITE.schedule}</dd>
+          </div>
+          <div>
+            <dt class="font-mono text-[10px] uppercase tracking-widest text-blue-mid mb-1">
+              Ubicación
+            </dt>
+            <dd class="text-base text-gray-300">{SITE.location}</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Right: form -->
+      <div class="bg-off px-4 sm:px-8 lg:px-16 py-16 md:py-24 flex flex-col justify-center order-1 lg:order-2 border-b lg:border-b-0 lg:border-l border-border">
+        <h2 class="font-head text-2xl font-bold text-dark mb-8">
+          Cuéntenos sobre su proyecto
+        </h2>
+        <ContactForm />
+      </div>
+
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
