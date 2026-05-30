@@ -5,6 +5,7 @@ import Footer        from '../components/layout/Footer.astro';
 import SectionLabel  from '../components/ui/SectionLabel.astro';
 import ProjectCard   from '../components/ui/ProjectCard.astro';
 import CtaBand       from '../components/sections/CtaBand.astro';
+import ProjectModal  from '../components/ui/ProjectModal.astro';
 import { PROJECTS, PROJECT_CATEGORIES } from '../data/projects';
 
 const categories = ['Todos', ...PROJECT_CATEGORIES];
@@ -75,12 +76,13 @@ const categories = ['Todos', ...PROJECT_CATEGORIES];
 
     <CtaBand
       title="¿Tiene un proyecto similar en mente?"
-      subtitle="Cuéntenos sobre su reto de ingeniería y lo ayudamos."
+      subtitle="Cuéntenos sobre tu reto de ingeniería y lo ayudamos."
       cta="Contáctenos"
     />
   </main>
 
   <Footer />
+  <ProjectModal />
 </BaseLayout>
 
 <script>

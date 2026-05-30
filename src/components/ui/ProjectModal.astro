@@ -1,0 +1,257 @@
+---
+// src/components/ui/ProjectModal.astro
+// No props needed — controlled entirely via JS + data attributes
+---
+
+<!-- Backdrop -->
+<div
+  id="project-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-project-name"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+>
+  <!-- Modal box -->
+  <div class="relative bg-white rounded-lg w-full max-w-3xl max-h-[90vh] shadow-2xl p-0">
+
+    <!-- Close button -->
+    <button
+      id="modal-close"
+      aria-label="Cerrar"
+      class="absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center rounded-full bg-off hover:bg-border transition-colors text-mid hover:text-dark"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Image carousel -->
+    <div class="relative bg-off aspect-video overflow-hidden rounded-t-lg">
+
+      <!-- Images container -->
+      <div id="modal-images" class="flex h-full transition-transform duration-300 ease-in-out">
+        <!-- Images injected by JS -->
+      </div>
+
+      <!-- Placeholder when no images -->
+      <div id="modal-no-image" class="hidden absolute inset-0 items-center justify-center">
+        <span class="font-mono text-xs text-muted uppercase tracking-widest">Sin imágenes</span>
+      </div>
+
+      <!-- Arrow prev -->
+      <button
+        id="modal-prev"
+        aria-label="Imagen anterior"
+        class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow transition-opacity text-dark disabled:opacity-30"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      <!-- Arrow next -->
+      <button
+        id="modal-next"
+        aria-label="Imagen siguiente"
+        class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 hover:bg-white shadow transition-colors text-dark disabled:opacity-30"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <!-- Dots indicator -->
+      <div id="modal-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+        <!-- Dots injected by JS -->
+      </div>
+
+      <!-- Counter -->
+      <span
+        id="modal-counter"
+        class="absolute top-3 left-3 font-mono text-[11px] bg-black/50 text-white px-2 py-1 rounded"
+      ></span>
+    </div>
+
+    <!-- Project info -->
+    <div class="p-6 md:p-8">
+      <div class="flex flex-wrap items-start justify-between gap-3 mb-4">
+        <div>
+          <span id="modal-category" class="font-mono text-[11px] px-2.5 py-1 bg-blue-light text-blue-DEFAULT rounded mb-2 inline-block"></span>
+          <h2 id="modal-project-name" class="font-head text-2xl font-bold text-dark"></h2>
+        </div>
+        <span id="modal-year" class="font-mono text-sm text-muted shrink-0"></span>
+      </div>
+
+      <p id="modal-description" class="text-sm text-mid leading-relaxed mb-6"></p>
+
+      <dl class="grid grid-cols-2 gap-4">
+        <div>
+          <dt class="font-mono text-[10px] uppercase tracking-widest text-muted mb-1">Cliente</dt>
+          <dd id="modal-client" class="text-sm text-dark font-medium"></dd>
+        </div>
+        <div>
+          <dt class="font-mono text-[10px] uppercase tracking-widest text-muted mb-1">Ubicación</dt>
+          <dd id="modal-location" class="text-sm text-dark font-medium"></dd>
+        </div>
+      </dl>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ─── State ───────────────────────────────────────────────────────────────
+  let currentIndex = 0;
+  let images: string[] = [];
+
+  // ─── Elements ────────────────────────────────────────────────────────────
+  const modal       = document.getElementById('project-modal')!;
+  const closeBtn    = document.getElementById('modal-close')!;
+  const prevBtn     = document.getElementById('modal-prev') as HTMLButtonElement;
+  const nextBtn     = document.getElementById('modal-next') as HTMLButtonElement;
+  const imagesEl    = document.getElementById('modal-images')!;
+  const dotsEl      = document.getElementById('modal-dots')!;
+  const counterEl   = document.getElementById('modal-counter')!;
+  const noImageEl   = document.getElementById('modal-no-image')!;
+
+  // Info fields
+  const nameEl      = document.getElementById('modal-project-name')!;
+  const categoryEl  = document.getElementById('modal-category')!;
+  const yearEl      = document.getElementById('modal-year')!;
+  const descEl      = document.getElementById('modal-description')!;
+  const clientEl    = document.getElementById('modal-client')!;
+  const locationEl  = document.getElementById('modal-location')!;
+
+  // ─── Open modal ──────────────────────────────────────────────────────────
+  function openModal(data: {
+    name: string; category: string; year: number;
+    description: string; client: string; location: string;
+    images: string[];
+  }) {
+    images       = data.images ?? [];
+    currentIndex = 0;
+
+    // Fill info
+    nameEl.textContent     = data.name;
+    categoryEl.textContent = data.category;
+    yearEl.textContent     = String(data.year);
+    descEl.textContent     = data.description;
+    clientEl.textContent   = data.client;
+    locationEl.textContent = data.location;
+
+    // Build carousel
+    buildCarousel();
+
+    // Show modal
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+
+    // Focus trap
+    closeBtn.focus();
+  }
+
+  // ─── Close modal ─────────────────────────────────────────────────────────
+  function closeModal() {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  // ─── Build carousel images + dots ────────────────────────────────────────
+  function buildCarousel() {
+    imagesEl.innerHTML = '';
+    dotsEl.innerHTML   = '';
+
+    if (images.length === 0) {
+      noImageEl.classList.remove('hidden');
+      noImageEl.classList.add('flex');
+      prevBtn.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+      counterEl.textContent = '';
+      return;
+    }
+
+    noImageEl.classList.add('hidden');
+    noImageEl.classList.remove('flex');
+    prevBtn.classList.remove('hidden');
+    nextBtn.classList.remove('hidden');
+
+    // Create image slides
+    images.forEach((src, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'min-w-full h-full flex items-center justify-center bg-off';
+
+      const img = document.createElement('img');
+      img.src       = src;
+      img.alt       = `Imagen ${i + 1}`;
+      img.className = 'w-full h-full object-cover';
+      img.loading   = 'lazy';
+
+      slide.appendChild(img);
+      imagesEl.appendChild(slide);
+
+      // Dot
+      const dot = document.createElement('button');
+      dot.className = [
+        'w-2 h-2 rounded-full transition-colors duration-150',
+        i === 0 ? 'bg-white' : 'bg-white/40',
+      ].join(' ');
+      dot.setAttribute('aria-label', `Ir a imagen ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(dot);
+    });
+
+    updateCarousel();
+  }
+
+  // ─── Navigate ────────────────────────────────────────────────────────────
+  function goTo(index: number) {
+    currentIndex = Math.max(0, Math.min(index, images.length - 1));
+    updateCarousel();
+  }
+
+  function updateCarousel() {
+    // Slide transform
+    imagesEl.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Counter
+    counterEl.textContent = `${currentIndex + 1} / ${images.length}`;
+
+    // Arrows
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex === images.length - 1;
+
+    // Dots
+    dotsEl.querySelectorAll('button').forEach((dot, i) => {
+      dot.className = [
+        'w-2 h-2 rounded-full transition-colors duration-150',
+        i === currentIndex ? 'bg-white' : 'bg-white/40',
+      ].join(' ');
+    });
+  }
+
+  // ─── Event listeners ─────────────────────────────────────────────────────
+  prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+  nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+  closeBtn.addEventListener('click', closeModal);
+
+  // Close on backdrop click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (modal.classList.contains('hidden')) return;
+    if (e.key === 'Escape')     closeModal();
+    if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+    if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+  });
+
+  // ─── Listen for open events from ProjectCard ─────────────────────────────
+  document.addEventListener('open-project-modal', (e: Event) => {
+    const detail = (e as CustomEvent).detail;
+    openModal(detail);
+  });
+</script>

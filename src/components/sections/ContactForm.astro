@@ -136,7 +136,7 @@
         showStatus('error', body.message ?? 'Ocurrió un error. Por favor inténtelo de nuevo.');
       }
     } catch {
-      showStatus('error', 'No se pudo enviar el mensaje. Revise su conexión e inténtelo de nuevo.');
+      showStatus('error', 'No se pudo enviar el mensaje. Revise tu conexión e inténtelo de nuevo.');
     } finally {
       submitBtn.disabled    = false;
       submitBtn.textContent = 'Enviar Solicitud';

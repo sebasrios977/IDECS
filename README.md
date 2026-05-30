@@ -87,9 +87,9 @@ Editar `src/data/site.ts` → arreglo `SERVICES`.
 ## Configurar Resend
 
 1. Crear cuenta en [resend.com](https://resend.com)
-2. Verificar su dominio (o usar el sandbox `onboarding@resend.dev` para pruebas)
+2. Verificar tu dominio (o usar el sandbox `onboarding@resend.dev` para pruebas)
 3. Generar API Key y colocarla en `.env`
-4. En `src/pages/api/contact.ts`, cambiar el campo `from` al correo de su dominio verificado
+4. En `src/pages/api/contact.ts`, cambiar el campo `from` al correo de tu dominio verificado
 
 ---
 

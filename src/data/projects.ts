@@ -14,6 +14,7 @@ export interface Project {
   description: string;
   /** Path relative to /public — leave empty string if no image yet */
   image:       string;
+  images:      string[]; // Array of paths relative to /public for additional images (optional)
 }
 
 export const PROJECTS: Project[] = [
@@ -26,7 +27,8 @@ export const PROJECTS: Project[] = [
     year:        2024,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-    image: '',
+    image: './images/test-image.png',
+    images: ['./images/test-image.png', './images/test-image.png'],
   },
   {
     id:          'proyecto-b',
@@ -37,7 +39,8 @@ export const PROJECTS: Project[] = [
     year:        2024,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-    image: '',
+    image: './images/test-image.png',
+    images: ['./images/test-image.png', './images/test-image.png'],
   },
   {
     id:          'proyecto-c',
@@ -48,7 +51,8 @@ export const PROJECTS: Project[] = [
     year:        2023,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-    image: '',
+    image: './images/test-image.png',
+    images: ['./images/test-image.png', './images/test-image.png'],
   },
   {
     id:          'proyecto-d',
@@ -59,7 +63,8 @@ export const PROJECTS: Project[] = [
     year:        2023,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-    image: '',
+    image: './images/test-image.png',
+    images: ['./images/test-image.png', './images/test-image.png'],
   },
   {
     id:          'proyecto-e',
@@ -70,7 +75,8 @@ export const PROJECTS: Project[] = [
     year:        2022,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-    image: '',
+    image: './images/test-image.png',
+    images: ['./images/test-image.png', './images/test-image.png'],
   },
   {
     id:          'proyecto-f',
@@ -81,7 +87,8 @@ export const PROJECTS: Project[] = [
     year:        2022,
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-    image: '',
+    image: './images/test-image.png',
+    images: ['./images/test-image.png', './images/test-image.png'],
   },
 ];
 
